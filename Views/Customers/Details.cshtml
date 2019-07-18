@@ -1,0 +1,15 @@
+﻿@model Amaterasu.Models.Customer
+@{
+    ViewBag.Title = "Customer";
+}
+
+<h2>Customers</h2>
+<p>Name: @Model.Name</p>
+<p>Gender: @Model.Gender</p>
+<p>Phone: @Model.Phone</p>
+@if (@Model.BirthDate.HasValue)
+{
+    <p>Date Of Birth: @Model.BirthDate</p>
+}
+<p>Address: @Model.Address</p>
+<p>MembershipType: @Model.MembershipType.Name</p>

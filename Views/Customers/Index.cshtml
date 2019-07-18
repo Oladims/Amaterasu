@@ -1,0 +1,60 @@
+﻿@model Amaterasu.ViewModels.CustomerVM
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h2>Customers</h2>
+<a class="btn btn-lg btn-primary" href="@Url.Action("CustomerForm", "Customers")">New Customer</a>
+
+<table class="table table-sm table-dark" id="customerTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone</th>
+            <th scope="col">DiscountRate</th>
+            <th scope="col">MembershipType</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <th scope="row">@customer.Id</th>
+                <td>@customer.Name</td>
+                <td>@customer.Address</td>
+                <td>@customer.Phone</td>
+                <td>@customer.MembershipType.DiscountRate%</td>
+                <td>@customer.MembershipType.Name</td>
+                <td>
+                    <a href="@Url.Action("Details", "Customers", new { id= customer.Id })"> Details</a>
+                    <a href="@Url.Action("Edit", "Customers", new { id= customer.Id })"> Edit</a>
+                    <button data-customer-id="@customer.Id" class="btn-link js-Delete">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#customerTable").on("click", ".js-Delete", function () {
+                var button = $(this);
+
+                if (confirm("Are you sure you want to Delete")) {
+                    $.ajax({
+                        url: "/api/customers/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+    } 
