@@ -5,7 +5,7 @@
 
 <h2>Movies</h2>
 
-<a class="btn btn-lg btn-primary" href="@Url.Action("MovieForm", "Movies")">New Movie</a>
+<a class="btn btn-lg btn-primary" href="@Url.Action("New", "Movies")">New Movie</a>
 <table id="movieTable" class="table table-sm table-dark">
     <thead>
         <tr>
@@ -22,7 +22,7 @@
             <tr>
                 <th scope="row">@movie.Id</th>
                 <td>@movie.Name</td>
-                <td>@movie.ReleaseDate</td>
+                <td>@movie.ReleaseDate</td> 
                 <td>@movie.DateAdded.ToShortDateString()</td>
                 <td>
                     <a href="@Url.Action("Details", "Movies", new { id= movie.Id })"> View </a>
